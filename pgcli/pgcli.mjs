@@ -2,9 +2,14 @@
 
 import util from 'node:util'
 import { exec as shell } from 'node:child_process'
-
 const exec = util.promisify(shell)
 
-const { stdout, stderr } = await exec('ls')
+let output = null
 
-console.log('stdout:::\n', stdout)
+console.log('Installing PGCLI...\n')
+
+output = await exec('apt install pgcli')
+
+console.log(output.stdout)
+
+console.log('PGCLI installation and configuration has finished.\n')
