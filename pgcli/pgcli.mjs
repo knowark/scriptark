@@ -2,12 +2,13 @@
 
 import { spawn } from 'node:child_process'
 
-const print = async (child) => {
+const command = async (child) => {
   for await (const chunk of child.stdout) console.log(`${chunk}`)
+  for await (const chunk of child.stderr) console.log(`${chunk}`)
 }
 
 console.log('\nInstalling PGCLI...\n')
 
-await print(spawn('apt', ['install', 'pgcli']))
+await command(spawn('apt', ['install', 'pgcli', '-y']))
 
 console.log('PGCLI installation and configuration has finished.\n')
