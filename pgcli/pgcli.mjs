@@ -13,4 +13,8 @@ await command(spawn('apt-get', ['update']))
 
 await command(spawn('apt-get', ['install', 'pgcli', '-y']))
 
+console.log('\nInstalling PSPG...\n')
+
+await command(spawn('apt-get', ['install', 'pspg', '-y']))
+
 console.log('PGCLI installation and configuration has finished.\n')
