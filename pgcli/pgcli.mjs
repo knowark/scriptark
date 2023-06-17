@@ -9,6 +9,8 @@ const command = async (child) => {
 
 console.log('\nInstalling PGCLI...\n')
 
-await command(spawn('apt', ['install', 'pgcli', '-y']))
+await command(spawn('apt-get', ['update']))
+
+await command(spawn('apt-get', ['install', 'pgcli', '-y']))
 
 console.log('PGCLI installation and configuration has finished.\n')
