@@ -1,15 +1,13 @@
 #!/usr/bin/node
 
-import util from 'node:util'
-import { exec as shell } from 'node:child_process'
-const exec = util.promisify(shell)
+import { spawn } from 'node:child_process'
 
-let output = null
+const print = async (child) => {
+  for await (const chunk of child.stdout) console.log(`${chunk}`)
+}
 
-console.log('Installing PGCLI...\n')
+console.log('\nInstalling PGCLI...\n')
 
-output = await exec('apt install pgcli')
-
-console.log(output.stdout)
+await print(spawn('apt', ['install', 'pgcli']))
 
 console.log('PGCLI installation and configuration has finished.\n')
