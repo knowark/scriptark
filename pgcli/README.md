@@ -6,7 +6,5 @@ visualization and management. It also install **PSPG** as the CLI's pager.
 ## Usage
 
 ```bash
-wget https://raw.githubusercontent.com/knowark/scriptark/main/pgcli/pgcli.mjs
-
-node pgcli.mjs
+wget -O pgcli.mjs https://raw.githubusercontent.com/knowark/scriptark/main/pgcli/pgcli.mjs | node pgcli.mjs
 ```
