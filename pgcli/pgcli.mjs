@@ -3,22 +3,27 @@
 import { spawn } from 'node:child_process'
 import { readFileSync, writeFileSync } from 'node:fs'
 
+const inform = (message) => {
+  const color = '[33m' // yellow
+  console.log(`\x1b${color}\n${message}\n\x1b[0m`)
+}
+
 const command = async (child) => {
   for await (const chunk of child.stdout) console.log(`${chunk}`)
   for await (const chunk of child.stderr) console.log(`${chunk}`)
 }
 
-console.log('\nInstalling PGCLI...\n')
+inform('Installing PGCLI...')
 
 await command(spawn('apt-get', ['update']))
 
 await command(spawn('apt-get', ['install', 'pgcli', '-y']))
 
-console.log('\nInstalling PSPG...\n')
+inform('Installing PSPG...')
 
 await command(spawn('apt-get', ['install', 'pspg', '-y']))
 
-console.log('\nUpdating PGCLI configuration...\n')
+inform('Updating PGCLI configuration...')
 
 const file = '.config/pgcli/config'
 const content = readFileSync(file, { encoding: 'utf8' }).replace(
@@ -26,4 +31,4 @@ const content = readFileSync(file, { encoding: 'utf8' }).replace(
   /keyring = True/g, 'keyring = False')
 writeFileSync(file, content, { encoding: 'utf8' })
 
-console.log('PGCLI installation and configuration has finished.\n')
+inform('PGCLI installation and configuration has finished.')
