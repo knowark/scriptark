@@ -20,9 +20,9 @@ await command(spawn('apt-get', ['install', 'pspg', '-y']))
 
 console.log('\nUpdating PGCLI configuration...\n')
 
-const file = './config/pgcli/config'
-const content = readFileSync(file).replace(
+const file = '.config/pgcli/config'
+const content = readFileSync(file, { encoding: 'utf8' }).replace(
   /# pager = less -SRXF/g, 'pager = pspg -i -s 5')
-writeFileSync(file, content)
+writeFileSync(file, content, { encoding: 'utf8' })
 
 console.log('PGCLI installation and configuration has finished.\n')
