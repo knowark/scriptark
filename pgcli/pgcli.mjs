@@ -22,7 +22,8 @@ console.log('\nUpdating PGCLI configuration...\n')
 
 const file = '.config/pgcli/config'
 const content = readFileSync(file, { encoding: 'utf8' }).replace(
-  /# pager = less -SRXF/g, 'pager = pspg -i -s 5')
+  /# pager = less -SRXF/g, 'pager = pspg -i -s 5').replace(
+  /keyring = True/g, 'keyring = False')
 writeFileSync(file, content, { encoding: 'utf8' })
 
 console.log('PGCLI installation and configuration has finished.\n')
