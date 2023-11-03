@@ -45,4 +45,10 @@ inform('Restart PostgreSQL server...')
 
 await command(spawn('systemctl', ['restart', 'postgresql']))
 
+inform('Change postgres user password...')
+
+console.log(execSync(
+  'sudo -Hiu postgres psql -c "ALTER USER postgres PASSWORD \'postgres\';"'
+).toString())
+
 inform('PostgreSQL installation and configuration has finished.')
