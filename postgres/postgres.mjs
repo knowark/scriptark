@@ -21,11 +21,11 @@ await command(spawn('apt-get', ['install', 'postgresql', '-y']))
 inform('Getting PostgreSQL configuration files...')
 
 const configFile = execSync(
-  "sudo -u postgres psql -c 'SHOW config_file'"
+  "sudo -Hiu postgres psql -c 'SHOW config_file'"
 ).toString().split('\n')[2].trim()
 
 const hbaFile = execSync(
-  "sudo -u postgres psql -c 'SHOW hba_file'"
+  "sudo -Hiu postgres psql -c 'SHOW hba_file'"
 ).toString().split('\n')[2].trim()
 
 console.log({ configFile, hbaFile })
