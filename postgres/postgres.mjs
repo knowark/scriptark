@@ -41,4 +41,8 @@ content = readFileSync(hbaFile, { encoding: 'utf8' }).replace(
   /127.0.0.1\/32/g, '0.0.0.0/0')
 writeFileSync(hbaFile, content, { encoding: 'utf8' })
 
+inform('Restart PostgreSQL server...')
+
+await command(spawn('systemctl', ['restart', 'postgresql']))
+
 inform('PostgreSQL installation and configuration has finished.')
