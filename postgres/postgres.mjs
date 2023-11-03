@@ -1,7 +1,6 @@
 #!/usr/bin/node
 
 import { spawn, execSync } from 'node:child_process'
-import { readFileSync, writeFileSync } from 'node:fs'
 
 const inform = (message) => {
   const color = '[33m' // yellow
@@ -19,10 +18,16 @@ await command(spawn('apt-get', ['update']))
 
 await command(spawn('apt-get', ['install', 'postgresql', '-y']))
 
-inform('Getting PostgreSQL configuration file...')
+inform('Getting PostgreSQL configuration files...')
 
-const file = execSync("sudo -u postgres psql -c 'SHOW config_file'").toString()
+const configFile = execSync(
+  "sudo -u postgres psql -c 'SHOW config_file'"
+).toString().split('\n')[2].trim()
 
-console.log({ file })
+const hbaFile = execSync(
+  "sudo -u postgres psql -c 'SHOW hba_file'"
+).toString().split('\n')[2].trim()
+
+console.log({ configFile, hbaFile })
 
 inform('PostgreSQL installation and configuration has finished.')
