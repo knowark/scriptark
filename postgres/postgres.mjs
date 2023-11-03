@@ -1,6 +1,7 @@
 #!/usr/bin/node
 
 import { spawn, execSync } from 'node:child_process'
+import { readFileSync, writeFileSync } from 'node:fs'
 
 const inform = (message) => {
   const color = '[33m' // yellow
@@ -29,5 +30,11 @@ const hbaFile = execSync(
 ).toString().split('\n')[2].trim()
 
 console.log({ configFile, hbaFile })
+
+inform('Updating PostgreSQL configuration...')
+
+const content = readFileSync(configFile, { encoding: 'utf8' }).replace(
+  /# listen_addresses = 'localhost'/g, "listen_addresses = '*' ")
+writeFileSync(configFile, content, { encoding: 'utf8' })
 
 inform('PostgreSQL installation and configuration has finished.')
