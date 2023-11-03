@@ -34,7 +34,7 @@ console.log({ configFile, hbaFile })
 inform('Updating PostgreSQL configuration...')
 
 const content = readFileSync(configFile, { encoding: 'utf8' }).replace(
-  /# listen_addresses = 'localhost'/g, "listen_addresses = '*' ")
+  /#listen_addresses = 'localhost'/g, "listen_addresses = '*'")
 writeFileSync(configFile, content, { encoding: 'utf8' })
 
 inform('PostgreSQL installation and configuration has finished.')
