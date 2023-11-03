@@ -33,8 +33,12 @@ console.log({ configFile, hbaFile })
 
 inform('Updating PostgreSQL configuration...')
 
-const content = readFileSync(configFile, { encoding: 'utf8' }).replace(
+let content = readFileSync(configFile, { encoding: 'utf8' }).replace(
   /#listen_addresses = 'localhost'/g, "listen_addresses = '*'")
 writeFileSync(configFile, content, { encoding: 'utf8' })
+
+content = readFileSync(hbaFile, { encoding: 'utf8' }).replace(
+  /127.0.0.1\/32/g, '0.0.0.0/0')
+writeFileSync(hbaFile, content, { encoding: 'utf8' })
 
 inform('PostgreSQL installation and configuration has finished.')
